@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bearden Plumbing — SEO Performance Report | April 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root {
+  --navy:    #0C3B6E;
+  --blue:    #1A5FA8;
+  --teal:    #0F6E56;
+  --amber:   #854F0B;
+  --red:     #A32D2D;
+  --lblue:   #D9E8F7;
+  --lteal:   #E1F5EE;
+  --lamb:    #FEF3E2;
+  --lred:    #FDE8E8;
+  --lgray:   #F7F6F3;
+  --border:  #E2DED6;
+  --text:    #1A1814;
+  --muted:   #6B6560;
+  --white:   #FFFFFF;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #F5F3EF;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  background: var(--navy);
+  color: rgba(255,255,255,0.65);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.topbar strong { color: #fff; }
+
+/* ── HERO HEADER ── */
+.hero {
+  background: var(--navy);
+  padding: 40px 40px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: rgba(26,95,168,0.25);
+  pointer-events: none;
+}
+.hero-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+.hero-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 42px;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.hero-sub { font-size: 16px; color: rgba(255,255,255,0.7); margin-bottom: 24px; }
+.hero-alert {
+  background: rgba(163,45,45,0.18);
+  border-left: 3px solid #E86B6B;
+  border-radius: 0 6px 6px 0;
+  padding: 12px 16px;
+  max-width: 680px;
+  color: rgba(255,255,255,0.88);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.hero-alert strong { color: #FFADAD; }
+
+/* ── NAV TABS ── */
+.nav-tabs {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  padding: 0 40px;
+  gap: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  overflow-x: auto;
+}
+.nav-tab {
+  padding: 14px 20px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color .2s, border-color .2s;
+  text-decoration: none;
+}
+.nav-tab:hover { color: var(--navy); }
+.nav-tab.active { color: var(--navy); border-bottom-color: var(--blue); }
+
+/* ── MAIN LAYOUT ── */
+.main { max-width: 1200px; margin: 0 auto; padding: 36px 40px 80px; }
+
+/* ── SECTION HEADER ── */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px solid var(--border);
+}
+.section-number {
+  font-family: 'DM Serif Display', serif;
+  font-size: 13px;
+  color: var(--blue);
+  opacity: 0.6;
+  min-width: 24px;
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  color: var(--navy);
+  line-height: 1.2;
+}
+.section { margin-bottom: 56px; scroll-margin-top: 56px; }
+
+/* ── METRIC CARDS ── */
+.metric-grid { display: grid; gap: 12px; margin-bottom: 24px; }
+.metric-grid-6 { grid-template-columns: repeat(6, 1fr); }
+.metric-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.metric-grid-3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 900px) {
+  .metric-grid-6 { grid-template-columns: repeat(3, 1fr); }
+  .metric-grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+.metric-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.metric-card .mc-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.metric-card .mc-value { font-size: 28px; font-weight: 600; line-height: 1; margin-bottom: 4px; }
+.metric-card .mc-sub { font-size: 11px; color: var(--muted); }
+.mc-navy  { color: var(--navy); }
+.mc-teal  { color: var(--teal); }
+.mc-amber { color: var(--amber); }
+.mc-blue  { color: var(--blue); }
+.mc-red   { color: var(--red); }
+
+/* ── CALLOUT BOXES ── */
+.callout {
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  border-left: 3px solid;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.callout strong { display: block; margin-bottom: 3px; font-size: 12.5px; font-weight: 600; }
+.callout-blue  { background: var(--lblue);  border-color: var(--blue);  color: #0e3a68; }
+.callout-teal  { background: var(--lteal);  border-color: var(--teal);  color: #084d3c; }
+.callout-amber { background: var(--lamb);   border-color: var(--amber); color: #5a3407; }
+.callout-red   { background: var(--lred);   border-color: var(--red);   color: #6e1e1e; }
+
+/* ── TWO-COL ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+.chart-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 20px 16px;
+}
+.chart-card h4 { font-size: 12px; font-weight: 600; color: var(--navy); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+.chart-wrap { position: relative; }
+
+/* ── DATA TABLE ── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: var(--white);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.data-table th {
+  background: var(--navy);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+}
+.data-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:nth-child(even) td { background: var(--lgray); }
+.data-table .center { text-align: center; }
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 4px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.03em;
+}
+.tag-teal  { background: var(--lteal); color: var(--teal); }
+.tag-amber { background: var(--lamb);  color: var(--amber); }
+.tag-blue  { background: var(--lblue); color: var(--blue); }
+.tag-red   { background: var(--lred);  color: var(--red); }
+.tag-gray  { background: #EFEDE9; color: #5B5650; }
+.pos { color: var(--teal); font-weight: 600; }
+.neg { color: var(--red);  font-weight: 600; }
+
+/* ── LEAD CATEGORY TABLE ── */
+.lead-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 20px; }
+.lead-table th {
+  background: var(--navy); color: #fff;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 10px 14px; text-align: left;
+}
+.lead-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.6; }
+.lead-table tr:last-child td { border-bottom: none; }
+.lead-table-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+/* ── FOOTER ── */
+.report-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.45);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-align: center;
+  padding: 18px 40px;
+  margin-top: 40px;
+}
+
+/* ── LEGEND ── */
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 11.5px; color: var(--muted); margin-bottom: 10px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 4px; vertical-align: middle; }
+
+/* ── FULL-WIDTH CHART CARD ── */
+.chart-card-full {
+  background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+  padding: 20px 24px 16px; margin-bottom: 24px;
+}
+.chart-card-full h4 { font-size: 12px; font-weight: 600; color: var(--navy); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+
+.gbp-peak { color: var(--teal); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>SEO Performance Review &nbsp;·&nbsp; Prepared by <strong>BuildAuthority</strong></span>
+  <span>May 31, 2026</span>
+</div>
+
+<div class="hero">
+  <div class="hero-label">Client Report &nbsp;·&nbsp; April 2026</div>
+  <div class="hero-title">Bearden Plumbing Solutions</div>
+  <div class="hero-sub">April 2026 Lead Analysis + Historical Performance Review</div>
+  <div class="hero-alert">
+    <strong>Revenue concern flagged:</strong>
+    Daniel reported recent monthly revenue around $55,900 — significantly below his ~$90,000 monthly average, a shortfall of approximately $34,000–$40,000. This report reviews what SEO efforts drove, what converted, and where opportunities were left on the table.
+  </div>
+</div>
+
+<nav class="nav-tabs">
+  <a class="nav-tab active" href="#s1">1 · April Leads</a>
+  <a class="nav-tab" href="#s2">2 · SEO vs HCP</a>
+  <a class="nav-tab" href="#s3">3 · Historical</a>
+  <a class="nav-tab" href="#s4">4 · Forecast</a>
+  <a class="nav-tab" href="#s5">5 · GBP Calls</a>
+  <a class="nav-tab" href="#s6">Summary</a>
+</nav>
+
+<div class="main">
+
+<!-- ══════════════════════════════════════════════════════ SECTION 1 -->
+<section id="s1" class="section">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">April 2026 Lead Analysis (SEO)</h2>
+  </div>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:20px;">All 54 leads came through our tracked SEO channels (Google Business Profile — Adairsville & Calhoun, including phone calls, web forms, and text messages). Non-quotable leads such as sales calls and out-of-scope inquiries are excluded.</p>
+
+  <div class="metric-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:10px">
+    <div class="metric-card"><div class="mc-label">Total quotable leads</div><div class="mc-value mc-navy">54</div></div>
+    <div class="metric-card"><div class="mc-label">Completed & paid</div><div class="mc-value mc-teal">14</div></div>
+    <div class="metric-card"><div class="mc-label">Trip charge only</div><div class="mc-value mc-amber">6</div><div class="mc-sub">Some with pending quotes</div></div>
+    <div class="metric-card"><div class="mc-label">Scheduled / in progress</div><div class="mc-value mc-blue">8</div><div class="mc-sub">Status unknown in HCP</div></div>
+  </div>
+  <div class="metric-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:20px">
+    <div class="metric-card"><div class="mc-label">Customer said would call back</div><div class="mc-value mc-amber">12</div></div>
+    <div class="metric-card"><div class="mc-label">Daniel said would text / call back</div><div class="mc-value mc-amber">7</div></div>
+    <div class="metric-card"><div class="mc-label">VM left — not in HCP</div><div class="mc-value mc-red">6</div></div>
+    <div class="metric-card"><div class="mc-label">Other unclosed</div><div class="mc-value" style="color:var(--muted)">1</div><div class="mc-sub">Out of scope request</div></div>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-card">
+      <h4>Lead Disposition Breakdown</h4>
+      <div class="chart-wrap" style="height:260px">
+        <canvas id="donutChart" role="img" aria-label="Donut chart of April 2026 lead disposition"></canvas>
+      </div>
+      <div class="legend" style="margin-top:12px;justify-content:center;font-size:11px">
+        <span><span class="legend-dot" style="background:#0F6E56"></span>Completed & paid (14)</span>
+        <span><span class="legend-dot" style="background:#854F0B"></span>Trip charge (6)</span>
+        <span><span class="legend-dot" style="background:#1A5FA8"></span>Scheduled (8)</span>
+        <span><span class="legend-dot" style="background:#D85A30"></span>Customer callback (12)</span>
+        <span><span class="legend-dot" style="background:#C47B1A"></span>Daniel follow-up (7)</span>
+        <span><span class="legend-dot" style="background:#888780"></span>VM/not in HCP (6)</span>
+        <span><span class="legend-dot" style="background:#BBBBBB"></span>Other (1)</span>
+      </div>
+    </div>
+    <div>
+      <div class="callout callout-teal" style="margin-bottom:10px">
+        <strong>Close rate: 25.9%</strong>
+        14 of 54 quotable leads converted to a paid job. The SEO average job value ($2,068) is 71% above the overall HCP April average of $1,204.
+      </div>
+      <div class="callout callout-amber">
+        <strong>Important context on unclosed leads</strong>
+        The "callback" category is split into two: leads where the <em>customer</em> said they would call back, and leads where <em>Daniel</em> committed to texting or calling the customer. Since we only track inbound calls, we cannot confirm whether Daniel's outbound follow-ups happened or what outcome they had. Possible reasons for no HCP record: pricing concerns, customer chose another company, Daniel followed up but the deal didn't close, or the customer didn't respond. These patterns repeat across other months.
+      </div>
+    </div>
+  </div>
+
+  <div class="lead-table-wrap">
+    <table class="lead-table">
+      <thead><tr>
+        <th style="width:210px">Category</th>
+        <th style="width:60px;text-align:center">Count</th>
+        <th>Notes</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="tag tag-teal">Completed & paid</span></td>
+          <td class="center"><strong>14</strong></td>
+          <td>Confirmed closed and paid jobs traceable in HCP. Revenue recorded in our SEO dashboard totals $28,952 across these 14 jobs.</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-amber">Trip charge only</span></td>
+          <td class="center"><strong>6</strong></td>
+          <td>Paid the $75 visit fee. Includes 2 web form submissions (Ashley Lewis, Steven Cameron). Some already have pending quotes or estimates on record — meaning the sales opportunity is still open. One has a $4,100 estimate awaiting approval. These are not lost leads; they remain in the pipeline.</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-blue">Scheduled / in progress</span></td>
+          <td class="center"><strong>8</strong></td>
+          <td>These leads exist in HCP with a scheduled or in-progress status but no confirmed completion. Jobs span from as early as March 1st through May 4th. Final outcomes not yet recorded in HCP. One has a $1,400 estimate on record.</td>
+        </tr>
+        <tr>
+          <td><span class="tag" style="background:#FEF3E2;color:#7A4A10">Customer said would call back</span></td>
+          <td class="center"><strong>12</strong></td>
+          <td>The <strong>customer</strong> explicitly said they would call back or follow up — after getting a quote over the phone, after checking availability, after an inspector visit, etc. Also includes leads where the customer didn't commit either way but didn't close on the call (pricing hesitation, unwilling to pay the visit fee). No HCP record found. Since we cannot track outbound calls from Daniel, we don't know if he reached out proactively. Notable: one customer did call back 1.5 hrs later but no one answered.</td>
+        </tr>
+        <tr>
+          <td><span class="tag" style="background:#FFF3E0;color:#8B5E00">Daniel said would text / call back</span></td>
+          <td class="center"><strong>7</strong></td>
+          <td><strong>Daniel</strong> committed to texting or calling the customer back — to share his number, confirm details, schedule a visit, or provide pricing. No HCP record found. We cannot confirm whether Daniel followed up or what happened after. These represent leads where the next move was on Daniel's side and the outcome is unknown to us.</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-red">VM left — not in HCP</span></td>
+          <td class="center"><strong>6</strong></td>
+          <td>Customer left a voicemail or text message expressing a service need. No record found in HCP. Includes one text message lead (Kevin from Rift — camera/jetter service). Real service inquiries with no confirmed follow-up: toilet repair, toilet unclog, bathtub faucet, general plumbing (×2), jetter service.</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-gray">Other unclosed</span></td>
+          <td class="center"><strong>1</strong></td>
+          <td>Customer requested a drain system reroute that is not technically feasible. Daniel acknowledged and the call ended cordially. No service opportunity exists for this lead.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ SECTION 2 -->
+<section id="s2" class="section">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">SEO Lead Value vs. HCP Total (April 2026)</h2>
+  </div>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:20px;">HCP recorded 43 total completed jobs in April across all lead sources, totaling $51,796 in revenue. Our SEO dashboard tracked 54 quotable leads. Here is how the two overlap:</p>
+
+  <div class="metric-grid metric-grid-4" style="margin-bottom:24px">
+    <div class="metric-card"><div class="mc-label">Total HCP jobs (April)</div><div class="mc-value mc-navy">43</div><div class="mc-sub">$51,796 total revenue</div></div>
+    <div class="metric-card"><div class="mc-label">SEO quotable leads</div><div class="mc-value mc-blue">54</div><div class="mc-sub">Calls, forms & messages</div></div>
+    <div class="metric-card"><div class="mc-label">SEO jobs confirmed closed</div><div class="mc-value mc-teal">14</div><div class="mc-sub">$28,952 in revenue</div></div>
+    <div class="metric-card"><div class="mc-label">SEO revenue share</div><div class="mc-value mc-teal">55.9%</div><div class="mc-sub">Of April HCP revenue</div></div>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-card">
+      <h4>SEO Revenue Attribution — April 2026</h4>
+      <div class="chart-wrap" style="height:160px">
+        <canvas id="revBarChart" role="img" aria-label="Horizontal bar comparing total HCP revenue vs SEO revenue April 2026"></canvas>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="callout callout-blue" style="margin-bottom:0">
+        <strong>How to read this</strong>
+        Of the 43 jobs in HCP this April, 14 are directly traceable to our SEO leads — 33% of all jobs by count. But the revenue those 14 jobs generated ($28,952) represents <strong>55.9%</strong> of the entire month's HCP revenue, suggesting SEO is driving higher-value jobs than average.
+      </div>
+      <div class="callout callout-amber" style="margin-bottom:0">
+        <strong>Uncaptured opportunity</strong>
+        Between the 12 customers who didn't close on the call and the 7 leads where Daniel committed to following up, there are 19 engaged conversations with no HCP record. If even half converted at the average HCP job value (~$1,204), that represents an additional ~$11,400 in potential revenue for April alone — on top of the 6 trip charges still in the pipeline.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ SECTION 3 -->
+<section id="s3" class="section">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Historical HCP Performance (2024, 2025 & 2026)</h2>
+  </div>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:20px;">Full three-year view. 2024 and 2025 are complete years. 2026 reflects January through May actual data.</p>
+
+  <!-- YoY Table Jan-May -->
+  <h3 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:12px">Year-over-year comparison (Jan–May)</h3>
+  <table class="data-table" style="margin-bottom:24px">
+    <thead><tr>
+      <th>Month</th>
+      <th>2024 Rev</th><th class="center">Jobs</th>
+      <th>2025 Rev</th><th class="center">Jobs</th>
+      <th>2026 Rev</th><th class="center">Jobs</th>
+    </tr></thead>
+    <tbody>
+      <tr><td><strong>Jan</strong></td><td>$61,394</td><td class="center">57</td><td>$65,955</td><td class="center">73</td><td>$106,422</td><td class="center">49</td></tr>
+      <tr><td><strong>Feb</strong></td><td>$66,158</td><td class="center">57</td><td>$92,513</td><td class="center">49</td><td>$86,225</td><td class="center">60</td></tr>
+      <tr><td><strong>Mar</strong></td><td>$101,333</td><td class="center">61</td><td>$86,478</td><td class="center">49</td><td>$66,444</td><td class="center">48</td></tr>
+      <tr><td><strong>Apr</strong></td><td>$64,090</td><td class="center">45</td><td>$47,002</td><td class="center">29</td><td>$51,796</td><td class="center">43</td></tr>
+      <tr><td><strong>May</strong></td><td>$57,220</td><td class="center">51</td><td>$32,657</td><td class="center">30</td><td>$46,322</td><td class="center">31</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Revenue trend chart full-width -->
+  <div class="chart-card-full">
+    <h4>Monthly Revenue — 2024, 2025 & 2026 with Forecast</h4>
+    <div class="legend">
+      <span><span class="legend-dot" style="background:#1A5FA8;border-radius:50%"></span>2024</span>
+      <span><span class="legend-dot" style="background:#BA7517;border-radius:50%"></span>2025</span>
+      <span><span class="legend-dot" style="background:#0F6E56;border-radius:50%"></span>2026 actual</span>
+      <span><span class="legend-dot" style="background:#0F6E56;border-radius:50%;opacity:.4"></span>2026 forecast</span>
+    </div>
+    <div class="chart-wrap" style="height:300px">
+      <canvas id="revTrendChart" role="img" aria-label="Line chart of monthly revenue 2024 2025 and 2026 with forecast"></canvas>
+    </div>
+  </div>
+
+  <!-- Job count chart full-width -->
+  <div class="chart-card-full">
+    <h4>Monthly Job Count — 2024, 2025 & 2026</h4>
+    <div class="legend">
+      <span><span class="legend-dot" style="background:#1A5FA8;border-radius:50%"></span>2024</span>
+      <span><span class="legend-dot" style="background:#BA7517;border-radius:50%"></span>2025</span>
+      <span><span class="legend-dot" style="background:#0F6E56;border-radius:50%"></span>2026 actual</span>
+      <span><span class="legend-dot" style="background:#0F6E56;border-radius:50%;opacity:.4"></span>2026 forecast</span>
+    </div>
+    <div class="chart-wrap" style="height:260px">
+      <canvas id="jobCountChart" role="img" aria-label="Line chart of monthly job counts 2024 2025 and 2026 with forecast"></canvas>
+    </div>
+  </div>
+
+  <!-- Full-year tables — 2024 and 2025 side by side -->
+  <div class="two-col">
+    <div>
+      <h3 style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em">Full-year detail — 2024</h3>
+      <table class="data-table">
+        <thead><tr><th>Month</th><th>Revenue</th><th class="center">Jobs</th></tr></thead>
+        <tbody id="table2024"></tbody>
+      </table>
+    </div>
+    <div>
+      <h3 style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em">Full-year detail — 2025</h3>
+      <table class="data-table">
+        <thead><tr><th>Month</th><th>Revenue</th><th class="center">Jobs</th></tr></thead>
+        <tbody id="table2025"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout callout-teal">
+    <strong>A critical pattern emerges with 2025 data</strong>
+    April and May 2025 were the weakest months on record — $47,002 and $32,657 respectively. The revenue Daniel is seeing in April–May 2026 ($51,796 and $46,322) is actually an improvement year-over-year: +10.2% and +41.8%. The real issue is that March–May is a structurally soft window for this business, visible consistently across both 2024 and 2025.
+  </div>
+  <div class="callout callout-amber">
+    <strong>Why it still feels painful</strong>
+    January 2026 was an exceptionally strong month at $106,422 — the highest January on record across both prior years. The SEO engagement launched at a historically strong moment, which elevated internal benchmarks going into a stretch that always softens seasonally. Dropping to $51k in April feels like a collapse from that peak, but it is in line or better than the same month in prior years.
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ SECTION 4 -->
+<section id="s4" class="section">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">2026 Revenue Forecast (Jun–Dec)</h2>
+  </div>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:20px;">Forecast based on a 2-year average (2024 + 2025) seasonal index, scaled to match 2026's Jan–May trajectory (scale factor: 1.059×). Directional estimate only.</p>
+
+  <table class="data-table" style="margin-bottom:20px">
+    <thead><tr>
+      <th>Month</th><th>2024 actual</th><th>2025 actual</th><th>2-yr avg</th><th>2026 forecast</th>
+    </tr></thead>
+    <tbody>
+      <tr><td><strong>Jun 2026</strong></td><td>$70,522</td><td>$56,424</td><td>$63,473</td><td><strong style="color:var(--teal)">$67,200</strong></td></tr>
+      <tr><td><strong>Jul 2026</strong></td><td>$47,743</td><td>$49,631</td><td>$48,687</td><td><strong style="color:var(--teal)">$51,545</strong></td></tr>
+      <tr><td><strong>Aug 2026</strong></td><td>$73,642</td><td>$71,941</td><td>$72,792</td><td><strong style="color:var(--teal)">$77,065</strong></td></tr>
+      <tr><td><strong>Sep 2026</strong></td><td>$55,955</td><td>$57,860</td><td>$56,908</td><td><strong style="color:var(--teal)">$60,249</strong></td></tr>
+      <tr><td><strong>Oct 2026</strong></td><td>$68,810</td><td>$102,780</td><td>$85,795</td><td><strong style="color:var(--teal)">$90,832</strong></td></tr>
+      <tr><td><strong>Nov 2026</strong></td><td>$69,083</td><td>$56,897</td><td>$62,990</td><td><strong style="color:var(--teal)">$66,688</strong></td></tr>
+      <tr><td><strong>Dec 2026</strong></td><td>$74,146</td><td>$66,373</td><td>$70,260</td><td><strong style="color:var(--teal)">$74,384</strong></td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11.5px;color:var(--muted);font-style:italic;margin-bottom:20px">Forecast methodology: 2-year seasonal average (2024+2025) scaled to 2026 Jan–May performance index. Actual results depend on close rate, capacity, and market conditions.</p>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ SECTION 5 -->
+<section id="s5" class="section">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2 class="section-title">Google Business Profile Call Volume</h2>
+  </div>
+  <p style="color:var(--muted);font-size:13px;margin-bottom:20px;">Both GBP profiles (Adairsville and Calhoun) are tracked through our call tracking numbers since the start of the SEO engagement in December 2025.</p>
+
+  <div class="metric-grid metric-grid-3" style="margin-bottom:24px">
+    <div class="metric-card"><div class="mc-label">Dec 2025 (baseline)</div><div class="mc-value mc-navy">29</div><div class="mc-sub">22 Adairsville · 7 Calhoun</div></div>
+    <div class="metric-card"><div class="mc-label">Peak — Apr 2026</div><div class="mc-value mc-teal">67</div><div class="mc-sub">52 Adairsville · 15 Calhoun</div></div>
+    <div class="metric-card"><div class="mc-label">May 2026</div><div class="mc-value mc-amber">39</div><div class="mc-sub">29 Adairsville · 10 Calhoun</div></div>
+  </div>
+
+  <div class="two-col">
+    <div class="chart-card" style="grid-column:1/-1">
+      <h4>GBP Tracked Calls by Location — Dec 2025 to May 2026</h4>
+      <div class="legend">
+        <span><span class="legend-dot" style="background:#1A5FA8"></span>Adairsville</span>
+        <span><span class="legend-dot" style="background:#D85A30"></span>Calhoun</span>
+        <span><span class="legend-dot" style="background:#0C3B6E;border-radius:50%"></span>Total (line)</span>
+      </div>
+      <div class="chart-wrap" style="height:240px">
+        <canvas id="gbpChart" role="img" aria-label="Grouped bar chart of GBP calls by location Dec 2025 to May 2026"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <table class="data-table" style="margin-bottom:20px">
+    <thead><tr><th>Month</th><th class="center">Adairsville</th><th class="center">Calhoun</th><th class="center">Total</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Dec 2025</strong></td><td class="center">22</td><td class="center">7</td><td class="center">29</td></tr>
+      <tr><td><strong>Jan 2026</strong></td><td class="center">36</td><td class="center">9</td><td class="center">45</td></tr>
+      <tr><td><strong>Feb 2026</strong></td><td class="center">35</td><td class="center">4</td><td class="center">39</td></tr>
+      <tr><td><strong>Mar 2026</strong></td><td class="center">27</td><td class="center">17</td><td class="center">44</td></tr>
+      <tr><td><strong>Apr 2026</strong></td><td class="center">52</td><td class="center">15</td><td class="center gbp-peak">67 ▲ peak</td></tr>
+      <tr><td><strong>May 2026</strong></td><td class="center">29</td><td class="center">10</td><td class="center">39</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-blue">
+    <strong>On Daniel's perception of fewer calls</strong>
+    Our tracked data shows April had the highest call volume since engagement started (67 calls). However, these are only calls through our GBP tracking numbers. Daniel's reference to "5–6 calls per day" likely includes direct calls to his personal or main business number, repeat clients who have his number saved, referrals, and other channels not flowing through our tracking. Tracked GBP calls represent SEO-sourced inbound only — they are not a count of all calls Daniel receives.
+  </div>
+  <div class="callout callout-amber">
+    <strong>May 2026 flag</strong>
+    May tracked calls dropped back to December baseline levels (39 calls), despite April being a peak month. If this trend continues into June, it may signal a seasonal pullback or a visibility issue worth investigating in the profile rankings for both locations.
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ SUMMARY -->
+<section id="s6" class="section">
+  <div class="section-header">
+    <span class="section-number">—</span>
+    <h2 class="section-title">Summary</h2>
+  </div>
+
+  <div class="metric-grid metric-grid-4" style="margin-bottom:28px">
+    <div class="metric-card"><div class="mc-label">April SEO leads</div><div class="mc-value mc-navy">54</div><div class="mc-sub">Calls, forms & messages</div></div>
+    <div class="metric-card"><div class="mc-label">Confirmed close rate</div><div class="mc-value mc-teal">25.9%</div><div class="mc-sub">14 of 54 paid</div></div>
+    <div class="metric-card"><div class="mc-label">SEO revenue (April)</div><div class="mc-value mc-teal">$28,952</div><div class="mc-sub">55.9% of HCP total</div></div>
+    <div class="metric-card"><div class="mc-label">Unclosed leads</div><div class="mc-value mc-amber">37</div><div class="mc-sub">Did not convert to paid</div></div>
+  </div>
+
+  <div class="callout callout-teal">
+    <strong>What SEO is doing</strong>
+    Our GMB profiles are generating consistent, high-intent call volume. 55.9% of April's recorded HCP revenue is traceable to SEO-originated leads. The SEO-sourced average job value ($2,068) outperforms the overall HCP April average ($1,204) by 71%. The channels are working and driving quality leads.
+  </div>
+  <div class="callout callout-amber">
+    <strong>The revenue gap — the full picture</strong>
+    The shortfall Daniel is experiencing is a combination of two factors: a seasonal pattern that repeats every year (April–May are historically soft months, visible clearly in both 2024 and 2025 data), and a meaningful number of leads that came in through SEO channels but did not make it into HCP as closed jobs. Improving follow-up tracking and capturing disposition on unclosed leads would help quantify where revenue is being lost and allow us to address it systematically.
+  </div>
+  <div class="callout callout-teal">
+    <strong>2026 vs. 2025 — the data tells a different story than the feeling</strong>
+    April 2026 ($51,796) outperformed April 2025 ($47,002) by +10.2%. May 2026 ($46,322) outperformed May 2025 ($32,657) by +41.8%. January 2026 ($106,422) was the strongest January in three years of HCP data. SEO engagement coincides with a measurable uplift in revenue during the months it has been active.
+  </div>
+</section>
+
+</div><!-- /main -->
+
+<div class="report-footer">
+  BuildAuthority &nbsp;·&nbsp; SEO Performance Report &nbsp;·&nbsp; Bearden Plumbing Solutions &nbsp;·&nbsp; May 31, 2026
+</div>
+
+<script>
+const months12 = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const rev2024  = [61394,66158,101333,64090,57220,70522,47743,73642,55955,68810,69083,74146];
+const jobs2024 = [57,57,61,45,51,56,44,52,50,48,44,61];
+const rev2025  = [65955,92513,86478,47002,32657,56424,49631,71941,57860,102780,56897,66373];
+const jobs2025 = [73,49,49,29,30,47,50,47,43,54,43,58];
+const rev2026  = [106422,86225,66444,51796,46322];
+const jobs2026 = [49,60,48,43,31];
+const forecast = [67200,51545,77065,60249,90832,66688,74384];
+const fmt = n => '$' + n.toLocaleString();
+
+// ── Populate year tables ────────────────────────────────────────────────────
+[['2024',rev2024,jobs2024],['2025',rev2025,jobs2025]].forEach(([yr,rev,jobs]) => {
+  const tbody = document.getElementById('table'+yr);
+  months12.forEach((m,i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><strong>${m}</strong></td><td>${fmt(rev[i])}</td><td class="center">${jobs[i]}</td>`;
+    tbody.appendChild(tr);
+  });
+});
+
+// ── Nav tab active state ────────────────────────────────────────────────────
+const tabs = document.querySelectorAll('.nav-tab');
+const sections = document.querySelectorAll('.section');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tabs.forEach(t => t.classList.remove('active'));
+      const matching = document.querySelector(`.nav-tab[href="#${e.target.id}"]`);
+      if (matching) matching.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => observer.observe(s));
+
+// ── CHART 1: Donut ──────────────────────────────────────────────────────────
+new Chart(document.getElementById('donutChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Completed & paid','Trip charge only','Scheduled/In progress','Customer said would call back','Daniel said would text/call back','VM left — not in HCP','Other unclosed'],
+    datasets: [{
+      data: [14,6,8,12,7,6,1],
+      backgroundColor: ['#0F6E56','#BA7517','#1A5FA8','#D85A30','#C47B1A','#888780','#CCCCCC'],
+      borderWidth: 3, borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, cutout: '62%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: c => ` ${c.label}: ${c.raw} leads` } }
+    }
+  }
+});
+
+// ── CHART 2: Horizontal bar ─────────────────────────────────────────────────
+new Chart(document.getElementById('revBarChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Total HCP revenue', 'SEO-attributed revenue'],
+    datasets: [{
+      data: [51796, 28952],
+      backgroundColor: ['#1A5FA8','#0F6E56'],
+      borderRadius: 4, borderWidth: 0
+    }]
+  },
+  options: {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: c => ` ${fmt(c.raw)}` } }
+    },
+    scales: {
+      x: { ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'k', font: { size: 10 } }, grid: { color: '#F0EDE8' } },
+      y: { ticks: { font: { size: 11 } }, grid: { display: false } }
+    }
+  }
+});
+
+// ── CHART 3: Revenue trend ──────────────────────────────────────────────────
+const fc_x_labels = [...months12];
+const fc_data_2026 = [...rev2026, null, null, null, null, null, null, null];
+const fc_forecast  = [null,null,null,null, rev2026[4], ...forecast];
+
+new Chart(document.getElementById('revTrendChart'), {
+  type: 'line',
+  data: {
+    labels: months12,
+    datasets: [
+      { label: '2024', data: rev2024, borderColor: '#1A5FA8', backgroundColor: 'transparent', tension: 0.3, borderWidth: 2, pointRadius: 3 },
+      { label: '2025', data: rev2025, borderColor: '#BA7517', backgroundColor: 'transparent', tension: 0.3, borderWidth: 2, pointRadius: 3, borderDash: [5,3] },
+      { label: '2026 actual', data: fc_data_2026, borderColor: '#0F6E56', backgroundColor: 'transparent', tension: 0.3, borderWidth: 2.5, pointRadius: 4 },
+      { label: '2026 forecast', data: fc_forecast, borderColor: '#0F6E56', backgroundColor: 'rgba(15,110,86,0.06)', tension: 0.3, borderWidth: 1.5, pointRadius: 3, borderDash: [4,3], fill: true }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${fmt(c.raw||0)}` } } },
+    scales: {
+      y: { ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'k', font: { size: 10 } }, grid: { color: '#F0EDE8' } },
+      x: { ticks: { autoSkip: false, font: { size: 10 } }, grid: { display: false } }
+    }
+  }
+});
+
+// ── CHART 4: Job count ──────────────────────────────────────────────────────
+// job count forecast: 2yr avg scaled to 2026 Jan-May level
+const jobsAvg2yr = jobs2024.map((v,i) => (v + jobs2025[i]) / 2);
+const jobsScale = (jobs2026.reduce((a,b)=>a+b,0)/5) / (jobsAvg2yr.slice(0,5).reduce((a,b)=>a+b,0)/5);
+const jobsForecast = jobsAvg2yr.slice(5).map(v => Math.round(v * jobsScale));
+
+new Chart(document.getElementById('jobCountChart'), {
+  type: 'line',
+  data: {
+    labels: months12,
+    datasets: [
+      { label: '2024', data: jobs2024, borderColor: '#1A5FA8', backgroundColor: 'transparent', tension: 0.3, borderWidth: 2, pointRadius: 3 },
+      { label: '2025', data: jobs2025, borderColor: '#BA7517', backgroundColor: 'transparent', tension: 0.3, borderWidth: 2, pointRadius: 3, borderDash: [5,3] },
+      { label: '2026 actual', data: [...jobs2026, null,null,null,null,null,null,null], borderColor: '#0F6E56', backgroundColor: 'transparent', tension: 0.3, borderWidth: 2.5, pointRadius: 4 },
+      { label: '2026 forecast', data: [null,null,null,null,jobs2026[4],...jobsForecast], borderColor: '#0F6E56', backgroundColor: 'rgba(15,110,86,0.06)', tension: 0.3, borderWidth: 1.5, pointRadius: 3, borderDash: [4,3], fill: true }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${c.raw||0} jobs` } } },
+    scales: {
+      y: { ticks: { font: { size: 10 } }, grid: { color: '#F0EDE8' } },
+      x: { ticks: { autoSkip: false, font: { size: 10 } }, grid: { display: false } }
+    }
+  }
+});
+
+// ── CHART 5: GBP grouped bar ────────────────────────────────────────────────
+const gbpMonths = ['Dec 2025','Jan 2026','Feb 2026','Mar 2026','Apr 2026','May 2026'];
+const adairsville = [22,36,35,27,52,29];
+const calhoun     = [7,9,4,17,15,10];
+const totals      = adairsville.map((a,i) => a + calhoun[i]);
+
+new Chart(document.getElementById('gbpChart'), {
+  type: 'bar',
+  data: {
+    labels: gbpMonths,
+    datasets: [
+      { label: 'Adairsville', data: adairsville, backgroundColor: '#1A5FA8', borderRadius: 3, borderWidth: 0 },
+      { label: 'Calhoun',     data: calhoun,     backgroundColor: '#D85A30', borderRadius: 3, borderWidth: 0 },
+      { label: 'Total', data: totals, type: 'line', borderColor: '#0C3B6E', backgroundColor: 'transparent',
+        tension: 0.3, borderWidth: 2, pointRadius: 4, borderDash: [4,2], yAxisID: 'y' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ` ${c.dataset.label}: ${c.raw}` } } },
+    scales: {
+      y: { ticks: { font: { size: 10 } }, grid: { color: '#F0EDE8' }, max: 75 },
+      x: { ticks: { autoSkip: false, font: { size: 10 } }, grid: { display: false } }
+    }
+  }
+});
+</script>
+</body>
+</html>
